@@ -14,12 +14,15 @@ namespace TalkAPI
             while (true)
             {
                 var mes = Console.ReadLine();
-                talk(mes);
+                if (mes != "")
+                {
+                    talk(mes);
+                }
             }
         }
         static async void talk (string mes)
         {
-            var APIkey = "APIKeyを入力";
+            var APIkey = "APIKeyの入力";
             var client = new HttpClient();
             var values = new Dictionary<string, string>
             {
@@ -30,9 +33,9 @@ namespace TalkAPI
             var response = await client.PostAsync(@"https://api.a3rt.recruit-tech.co.jp/talk/v1/smalltalk", content);
             var responseString = await response.Content.ReadAsStringAsync();
          
-            Welcome x = JsonConvert.DeserializeObject<Welcome>(responseString);
+            Welcome str = JsonConvert.DeserializeObject<Welcome>(responseString);
 
-            Console.WriteLine("AI:"+x.Results[0].Reply);
+            Console.WriteLine("AI:"+str.Results[0].Reply);
         }
         public class Welcome
         {
